@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="/add/" method="post">
+    {% csrf_token %}
+    <center>
+    <div style="margin-top: 20px;">
+    <label class="active">日记名：</label>
+    <input type="text" class="name" name="d_name" placeholder="请输入日记名">
+    </div>
+        </center>
+    <center>
+     <div>
+         <label class="active" style="margin-left: -200px;">内容：</label></div>
+    <div>
+        <textarea type="text" class="content" name="content" style="width:95%;height: 400px;" placeholder="在此书写内容"></textarea>
+    </div>
+    </center>
+    <div>
+            <input type="submit" class="save" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-top: 10px;margin-left: 1180px;" value="保存"/>
+        <input class="cancel" type="button" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-left: 40px;" value="取消">
+
+    </div>
+    </form>
+{% endblock %}
+{% block script %}
+<script>
+
+{{ er|safe }}
+$('.cancel').click(function () {
+    $('.name').val('');
+    $('.content').val('');
+
+})
+</script>
+{% endblock %}

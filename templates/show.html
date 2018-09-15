@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <center>
+    <div style="margin-top: 20px;">
+    <label class="active">日记名：</label>
+    <input type="text" class="name" name="d_name" placeholder="请输入日记名" value="{{ obj.title }}" disabled="disabled">
+    </div>
+        </center>
+    <center>
+     <div>
+         <label class="active" style="margin-left: -200px;">内容：</label></div>
+    <div>
+        <textarea disabled=disabled type="text" class="content" name="content" style="width:95%;height: 400px;" placeholder="在此书写内容">{{ obj.content }}</textarea>
+    </div>
+    </center>
+    <div>
+            <input type="button" class="cancel" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-top: 10px;margin-left: 1180px;" value="返回"/>
+
+
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script src="/static/js/jquery-1.12.4.js"></script>
+<script>
+$('.cancel').click(function () {
+    location.href='/diaries/';
+
+})
+</script>
+{% endblock %}

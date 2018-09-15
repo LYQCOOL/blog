@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="/add/" method="post">
+    {% csrf_token %}
+    <center>
+    <div style="margin-top: 20px;">
+        <input type="text" style="display: none" class="d_id" name="d_id" value="{{ obj.id }}">
+    <label class="active">日记名：</label>
+    <input type="text" class="name" name="d_name" placeholder="请输入日记名" value="{{ obj.title }}">
+    </div>
+        </center>
+    <center>
+     <div>
+         <label class="active" style="margin-left: -200px;">内容：</label></div>
+    <div>
+        <textarea   warp="hard" class="content" name="content" style="width:95%;height: 400px;" placeholder="在此书写内容">{{ obj.content }}</textarea>
+    </div>
+    </center>
+    <div>
+            <input type="button" class="save" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-top: 10px;margin-left: 1180px;" value="修改"/>
+        <input class="cancel" type="button" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-left: 40px;" value="取消">
+
+    </div>
+    </form>
+{% endblock %}
+{% block script %}
+    <script src="/static/js/jquery-1.12.4.js"></script>
+     <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script>
+{{ er|safe }}
+$.ajaxSetup({
+             beforeSend:function (xhr,settings) {
+                 xhr.setRequestHeader('X-CSRFtoken',$.cookie('csrftoken'));
+
+             }
+         });
+$('.cancel').click(function () {
+    location.reload();
+
+});
+$('.save').click(function () {
+    console.log('hee');
+
+ $.ajax({
+       url:'/change/',
+       data:{'name':$('.name').val(),'content':$('.content').val(),'d_id':$('.d_id').val()},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+                      if (obj.status)
+                     {
+                         alert('修改成功！！！');
+                         location.reload();
+                     }
+                     else {
+
+                          alert(obj.error);
+                     }
+
+
+                 }
+             })
+});
+
+</script>
+{% endblock %}

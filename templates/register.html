@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css"/>
+    <style>
+.register {
+    width: 400px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #f0f0f0;
+    padding: 10px 30px 50px 30px;
+    -webkit-box-shadow: 5px 10px 10px rgba(0, 0, 0, .05);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, .05);
+
+}
+    </style>
+</head>
+<body background="/static/img/back.jpg" style=" background-repeat:no-repeat ;background-size:100% 100%; background-attachment:fixed;">
+<div class="register">
+    <div style="font-size: 25px; font-weight: bold;text-align: center;color: #5bc0de">
+        用户注册
+    </div>
+    <form role="form" action="/register/" method="post" id="form-register">
+       {% csrf_token %}
+        <div class="form-group">
+            <label for="username">姓名：</label>
+            <p>{{ obj.username }}
+            {{ obj.errors.username.0 }}</p>
+        </div>
+        <div class="form-group">
+            <label for="password">密码：</label>
+{#            <input type="password" name="password" class="form-control" id="password" placeholder="请输入密码">#}
+            {{ obj.password }}
+            {{ obj.errors.password.0 }}
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">确认密码：</label>
+{#            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="请重新输入密码">#}
+        {{ obj.confirm_password }}
+            {{ obj.errors.confirm_password.0 }}
+        </div>
+
+
+        <input type="submit" style="color: #5bc0de" class="btn btn-default" value="注册"/ >
+        <input type="button" onclick="fanhui();"  style="position: relative;left: 170px;color: #5bc0de" class="btn btn-default" value="返回登录"/>
+    </form>
+
+</div>
+</body>
+{{ s|safe }}
+<script>
+   function fanhui() {
+       location.href='/login/';
+
+   }
+
+</script>
+</html>
