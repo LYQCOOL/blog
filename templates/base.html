@@ -48,28 +48,41 @@
 
 <body style="background-color: #FFEEC2">
 <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
+
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h4 style="color: #269abc">日记管理系统</h4>
+            <a class="navbar-brand" style="color: #5bc0de;font-size: 30px;" href="/">博客系统</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse ">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="/diaries/">我的日记</a></li>
-            <li><a href="/add/">写日记</a></li></ul>
 
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/blogs/">我的博客</a></li>
+                <li><a href="/add/">写博客</a></li>
+                <li><a href="#">Linux</a></li>
+                <li><a href="#">GoLang</a></li>
+                <li><a href="#">Scrapy</a></li>
+                <li><a href="#">OpanStack</a></li>
+            </ul>
+            {% if user %}
             <ul class="nav navbar-nav navbar-right">
                 <li><h4 style="color: #269abc"> 欢迎您！{{ user }}</h4></li>
             </ul>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login/">登录</a></li>
+                <li><a href="/register/">注册</a></li>
+
+            </ul>
+            {% endif %}
         </div>
     </div>
 </nav>
+
 {% block content %}
 {% endblock %}
 </body>

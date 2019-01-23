@@ -1,35 +1,62 @@
-{% extends 'base.html' %}
-{% block content %}
-    <form action="/add/" method="post">
-    {% csrf_token %}
-    <center>
-    <div style="margin-top: 20px;">
-    <label class="active">日记名：</label>
-    <input type="text" class="name" name="d_name" placeholder="请输入日记名">
-    </div>
-        </center>
-    <center>
-     <div>
-         <label class="active" style="margin-left: -200px;">内容：</label></div>
-    <div>
-        <textarea type="text" class="content" name="content" style="width:95%;height: 400px;" placeholder="在此书写内容"></textarea>
-    </div>
-    </center>
-    <div>
-            <input type="submit" class="save" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-top: 10px;margin-left: 1180px;" value="保存"/>
-        <input class="cancel" type="button" style="color: #5bc0de;background-color: #FFEEC2;height: 40px;font-size: large;margin-left: 40px;" value="取消">
+{% extends 'backend_layout.html' %}
 
-    </div>
-    </form>
+{% block css %}
+    <link rel="stylesheet" href="/static/plugins/kindeditor/themes/default/default.css"/>
 {% endblock %}
-{% block script %}
-<script>
 
-{{ er|safe }}
-$('.cancel').click(function () {
-    $('.name').val('');
-    $('.content').val('');
+{% block conent %}
+    <ol class="breadcrumb" style="margin-bottom: 0;">
+        <li><a href="#">文章管理</a></li>
+        <li class="active">创建文章</li>
+    </ol>
+    <form action="/add/" method="POST">
+    {% csrf_token %}
 
-})
-</script>
+    <div style="padding: 5px 8px;">
+        <div class="form-group">
+            <label for="title">标题</label>
+            <input type="text" name="d_name" class="form-control" id="title" placeholder="文章标题">
+        </div>
+        <div class="form-group">
+            <label for="content" >内容</label>
+            <textarea name="content" name="content" style="width: 100%;min-height:500px;visibility:hidden;"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="types">标签：</label>
+
+            <div>
+                {% for tag in tags %}
+                <label class="radio-inline">
+                <check>
+                </check>
+                    <input type="radio" name="tag" value="{{ tag.id }}"> {{ tag.tag }}
+                </label>
+                {% endfor %}
+
+            </div>
+
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="保存">
+
+        </div>
+    </div>
+ </form>
+
+{% endblock %}
+
+{% block js %}
+    <script charset="utf-8" src="/static/plugins/kindeditor/kindeditor-min.js"></script>
+    <script charset="utf-8" src="/static/plugins/kindeditor/lang/zh_CN.js"></script>
+    <script>
+        var editor;
+        KindEditor.ready(function (K) {
+            editor = K.create('textarea[name="content"]', {
+                resizeType: 1,
+                uploadJson: '/on.asp',
+                fileManagerJson: '/asp/fjson.asp'
+            });
+        });
+    </script>
+    <script>{{ er|safe }}</script>
 {% endblock %}

@@ -1,0 +1,30 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="color: #5bc0de;font-size: 30px;" href="/">博客系统</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            </ul>
+
+           {% if user %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><h4 style="color: #269abc"> 欢迎您！{{ user }}</h4></li>
+            </ul>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login/">登录</a></li>
+                <li><a href="/register/">注册</a></li>
+
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>

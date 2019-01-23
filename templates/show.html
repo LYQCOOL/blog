@@ -2,8 +2,8 @@
 {% block content %}
     <center>
     <div style="margin-top: 20px;">
-    <label class="active">日记名：</label>
-    <input type="text" class="name" name="d_name" placeholder="请输入日记名" value="{{ obj.title }}" disabled="disabled">
+    <label class="active">标题：</label>
+    <input type="text" class="name" name="d_name" placeholder="请输入标题" value="{{ obj.title }}" disabled="disabled">
     </div>
         </center>
     <center>
@@ -24,7 +24,7 @@
     <script src="/static/js/jquery-1.12.4.js"></script>
 <script>
 $('.cancel').click(function () {
-    location.href='/diaries/';
+    location.href='/blogs/';
 
 })
 </script>

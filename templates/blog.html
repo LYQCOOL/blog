@@ -1,0 +1,99 @@
+{% extends 'backend_layout.html' %}
+{% block css %}
+
+{% endblock %}
+{% block conent %}
+    <ol class="breadcrumb" style="margin-bottom: 0;">
+        <li><a href="#">文章管理</a></li>
+        <li class="active">文章列表</li>
+    </ol>
+    <div>
+
+
+        <div class="clearfix"
+             style="height: 36px;line-height: 35px;padding: 0 15px;border-top: 1px solid #dddddd;background-color: #f1f0f0">
+            <i class="fa fa-table" aria-hidden="true"></i>
+            我的文章
+            <a href="/add/" class="right" style="display: inline-block;padding:0 10px;background-color: #428bca;color: #ffffff;">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                创建新文章
+            </a>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>文章标题</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in obj %}
+            <tr>
+                <td>{{ i.title }}</td>
+                <td>
+                    <p style="display: none">{{ i.id }}</p>
+                    <a id="remove" class="btn1 btn btn-danger btn-xs">
+                        <i class="fa fa-times"  aria-hidden="true"></i>
+                        删除
+                    </a>
+                    |
+                    <a class="btn2 btn btn-primary btn-xs">
+                        <i class="fa fa-pencil-square-o" id="edit" aria-hidden="true"></i>
+                        编辑
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/jquery-1.12.4.js"></script>
+         <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script>
+$.ajaxSetup({
+             beforeSend:function (xhr,settings) {
+                 xhr.setRequestHeader('X-CSRFtoken',$.cookie('csrftoken'));
+
+             }
+         });</script>
+    <script>
+    $('.btn1').click(function () {
+        var va=$(this).prev().html();
+        $.ajax({
+       url:'/blogs/',
+       data:{'d_id':va},
+       type:'POST',
+       dataType:'JSON',
+       success:function (obj) {
+                      if (obj)
+                     {
+                         alert('删除成功！！！');
+                         location.reload();
+                     }
+                     else {
+
+                          alert(obj.error);
+                     }
+
+
+                 }
+             })
+
+    })
+    $('.btn2').click(function () {
+        var va=$(this).prev().prev().html();
+        location.href='/edit/?id='+va;
+
+    })
+    </script>
+        <script>{{ er|safe }}
+        </script>
+{% endblock %}
